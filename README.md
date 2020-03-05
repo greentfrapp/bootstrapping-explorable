@@ -4,7 +4,9 @@
 
 This is meant to be an explorable explanation that people can use to learn about bootstrapping and run quick interactive experiments.
 
-Check it out [here](https://greentfrapp.github.io/bootstrapping-explorable/)!
+Check out the explorable [here](https://greentfrapp.github.io/bootstrapping-explorable/)!
+
+Alternatively, here's a [video demo](https://youtu.be/dIXgW9nKFAk) and here's the [GitHub repo](https://github.com/greentfrapp/bootstrapping-explorable/) with the code.
 
 ![](assets/fishermen.png)
 
@@ -28,7 +30,5 @@ Some interesting questions that the reader can try to answer with the explorable
 
 ![](assets/screenshot_5.png)
 
-
-
-It was written from scratch with the Vue.js and D3.js libraries. Hope you enjoyed it!
+It was written from scratch with the Vue.js and D3.js libraries and hosted on GitHub pages. Hope you enjoyed it!
 
