@@ -2,6 +2,12 @@ body {
   font-size: 1.25rem;
   line-height: 2.5rem;
 }
+img {
+  max-width: 500px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
 h1 {
   text-align: center;
   font-size: 64px;
@@ -126,6 +132,7 @@ button#sample, button#fastforward {
   /*height: 100vh;*/
   padding: 50px;
   background-color: azure;
+  text-align: center;
 }
 #section-intro h2 {
   font-size: 8vw;
@@ -209,6 +216,7 @@ button#sample, button#fastforward {
   /*height: 90vh;*/
   padding: 50px;
   background-color: azure;
+  text-align: center;
 }
 #section-1-5 p {
   text-align: center;
@@ -316,16 +324,21 @@ button#sample, button#fastforward {
 #section-4 {
   display: grid;
   grid-template-areas:
-  "."
+  "title"
   "legend"
   "graph"
-  "caption";
+  "caption"
+  "image";
+}
+#section-4 img {
+  grid-area: image;
 }
 #section-4 .legend {
   grid-area: legend;
   width: calc(100vw - 50px);
 }
 #section-4 h2 {
+  grid-area: title;
   font-size: 8vw;
   width: calc(100vw - 50px);
 }
@@ -356,13 +369,15 @@ button#sample, button#fastforward {
   #section-4 {
     grid-template-columns: 80% 20%;
     grid-template-areas:
-    ". ."
+    "title title"
     "legend legend"
-    "graph caption";
+    "graph caption"
+    "image image";
     padding: 50px 100px;
   }
   #section-4 h2 {
     font-size: 54px;
+    width: calc(100vw - 200px);
   }
   #section-4 .legend {
     margin-bottom: 50px;
@@ -381,8 +396,9 @@ button#sample, button#fastforward {
   #section-4 {
     grid-template-columns: 40% 50% 10%;
     grid-template-areas:
-    ". . ."
-    "legend graph caption";
+    "title title title"
+    "legend graph caption"
+    "image image image";
     padding: 50px 100px;
   }
   #section-4 h2 {

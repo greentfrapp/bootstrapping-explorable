@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CS109</title>
+  <title>Bootstrapping - An Explorable Explanation</title>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js" integrity="sha256-m0QmIsBXcOMiETRmpT3qg2IQ/i0qazJA2miCHzOmS1Y=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -38,8 +38,9 @@
       <p>
         Small fingerlings and big giants swimming in rivers of life, rivers so abundant that all you see were frothing waters and shiny scales that shimmered just below the surface.
       </p>
+      <img src="assets/fishermen_scientific.png" />
       <p>
-        Two experienced fishers, each went to a river and fished for a day. Being scientific people of an inquisitive nature, they each weighed their catches and sketched the histogram below.
+        Two fishermen each went to a river and fished for a day. Being scientific people of an inquisitive nature, they each weighed their catches and sketched the histogram below.
       </p>
     </div>
   <div id="main">
@@ -70,9 +71,9 @@
             <p>
               But could this difference be by chance? Could both rivers actually be the same?
             </p>
-            <p>
+            <!-- <p>
               In other words, is the difference <b>significant</b>?
-            </p>
+            </p> -->
           </div>
         </div>
         <div id="interactive-input" v-if="interactive">
@@ -90,8 +91,12 @@
           </div>
         </div>
       </div>
+      <div style="text-align: center;">
+        <img src="assets/fishermen_significant.png" />
+      </div>
       <div id="section-1-5">
         <h2>Is there really a difference?</h2>
+        <img src="assets/fishermen_coincidence.png" />
         <p>
           We have a difference of <b>{{ formatDp(diffMean) }}</b> between the averages of the two catches.
         <!-- </p> -->
@@ -99,7 +104,7 @@
           It <i>could</i> be that the rivers are the same (a.k.a the <b>null hypothesis</b>) and we just so happened to get this difference of <b>{{ formatDp(diffMean) }}</b>.
         </p>
         <p>
-          What bootstrapping tries to find out is:
+          What bootstrapping tries to find out:
         </p>
         <h3 style="text-align: center; margin-top: 0px;">
           What is the probability that we <i>just so happened</i> to get this difference of <b>{{ formatDp(diffMean) }}</b>, assuming the rivers are the same?
@@ -115,6 +120,9 @@
         <!-- <br/> -->
           If this probability is low, then the two rivers are probably significantly different.
         </p>
+        <div style="text-align:right;">
+          <img src="assets/fishermen_sameriver.png" />
+        </div>
       </div>
       <div id="section-2">
         <div class="legend">
@@ -136,12 +144,13 @@
         <div id="chart2">
         </div>
       </div>
+        <img src="assets/fishermen_pretend.png" />
       <div id="section-3">
         <div id="chart3">
         </div>
         <div class="legend">
           <p id="caption-3">
-            Let us run a thought experiment. Suppose both fishers fished from this sample distribution, what would their two catches look like? (Assuming they both fish the same amount as the original distributions.)
+            Let us run a thought experiment. Suppose both fishermen fished from this sample distribution, what would their two catches look like? (Assuming they both fish the same amount as the original distributions.)
           </p>
           <button id="sample" class="ui button massive" @click="sample">Sample!</button>
           <div>
@@ -178,6 +187,7 @@
             {{ pValueComment }}
           </p>
         </div>
+        <img src="assets/fishermen_again.png" />
       </div>
       <div id="section-summary">
         <h2>Summary</h2>
