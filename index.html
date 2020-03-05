@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CS109</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js" integrity="sha256-m0QmIsBXcOMiETRmpT3qg2IQ/i0qazJA2miCHzOmS1Y=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js" integrity="sha256-LYikRn7mcU9KVCYcNQ4FjDGgcNOo1aUCb9V4Yh9IBdU=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <div id="title">
+      <div id="title-left">
+        <h1>BOOTSTRAPPING</h1>
+      </div>
+      <div id="title-right">
+        <div>
+          <h3>
+            How does bootstrapping work?
+          </h3>
+          <p>
+            In my CS109 class, the idea of bootstrapping took awhile to settle in, so here's an explorable explanation that tries to illustrate some of the intuition behind the beautiful and wildly popular statistical technique known as bootstrapping!
+          </p>
+          <p>
+            <i>By Swee Kiat (SK), Lim<br/>MSCS 1st year, Stanford</i>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="section-intro">
+      <!-- <h2>Two rivers, both alike in dignity...</h2> -->
+      <p>
+        Consider, two rivers filled with trout of different sizes.
+      </p>
+      <p>
+        Small fingerlings and big giants swimming in rivers of life, rivers so abundant that all you see were frothing waters and shiny scales that shimmered just below the surface.
+      </p>
+      <p>
+        Two experienced fishers, each went to a river and fished for a day. Being scientific people of an inquisitive nature, they each weighed their catches and sketched the histogram below.
+      </p>
+    </div>
+  <div id="main">
+    <div id="app">
+      <div id="interactive-mode-left" v-if="false">
+        <h3>Bonus Mode!</h3>
+      </div>
+      <div id="interactive-mode-right" v-if="false">
+        <h3>Bonus Mode!</h3>
+      </div>
+      <div id="section-1">
+        <div id="chart1">
+        </div>
+        <div class="legend">
+          <div>
+            <span class="legend-a-actual"></span> Mean: {{ formatDp(meanA) }}
+          </div>
+          <div>
+            <span class="legend-b-actual"></span> Mean: {{ formatDp(meanB) }}
+          </div>
+          <div>
+            <h3>Difference: {{ formatDp(diffMean) }}</h3>
+          </div>
+          <div id="caption-1">
+            <p>
+              Ah! There's a difference of <b>{{ formatDp(diffMean) }}</b> between the averages of the two catches.
+            </p>
+            <p>
+              But could this difference be by chance? Could both rivers actually be the same?
+            </p>
+            <p>
+              In other words, is the difference <b>significant</b>?
+            </p>
+          </div>
+        </div>
+        <div id="interactive-input" v-if="interactive">
+          <div class="ui labeled fluid input">
+            <div class="ui label" style="background-color: #1abc9c90;">
+              Edit this!
+            </div>
+            <input type="text" v-model="dataADisplay">
+          </div>
+          <div class="ui labeled fluid input">
+            <div class="ui label" style="background-color: #f39c1290;">
+              Edit this!
+            </div>
+            <input type="text" v-model="dataBDisplay">
+          </div>
+        </div>
+      </div>
+      <div id="section-1-5">
+        <h2>Is there really a difference?</h2>
+        <p>
+          We have a difference of <b>{{ formatDp(diffMean) }}</b> between the averages of the two catches.
+        <!-- </p> -->
+        <!-- <p> -->
+          It <i>could</i> be that the rivers are the same (a.k.a the <b>null hypothesis</b>) and we just so happened to get this difference of <b>{{ formatDp(diffMean) }}</b>.
+        </p>
+        <p>
+          What bootstrapping tries to find out is:
+        </p>
+        <h3 style="text-align: center; margin-top: 0px;">
+          What is the probability that we <i>just so happened</i> to get this difference of <b>{{ formatDp(diffMean) }}</b>, assuming the rivers are the same?
+        </h3>
+        <p>
+          Or in more technical terms:
+        </p>
+        <h3 style="text-align: center; margin-top: 0px;">
+          What is the likelihood of the observed data, given that the null hypothesis is true (a.k.a. the <b>p-value</b>)?
+        </h3>
+        <p>
+          If this probability is high, then there is a good chance that the rivers are the same.
+        <!-- <br/> -->
+          If this probability is low, then the two rivers are probably significantly different.
+        </p>
+      </div>
+      <div id="section-2">
+        <div class="legend">
+          <div id="caption-2">
+            <!-- <p>
+              How can we tell if there is a significant difference between the weights of trouts from the two rivers?
+            </p> -->
+            <p>
+              So, let us assume for a minute that both rivers are actually the same and part of a giant long river. Then we can combine both catches, treating them as a single sample from this large river.
+            </p>
+            <p>
+              Think of this combined distribution as an approximation of the large river's distribution.
+            </p>
+            <p>
+              We want to estimate the probability that a difference of <b>{{ formatDp(diffMean) }}</b> happens when we randomly sample two catches from this combined distribution.
+            </p>
+          </div>
+        </div>
+        <div id="chart2">
+        </div>
+      </div>
+      <div id="section-3">
+        <div id="chart3">
+        </div>
+        <div class="legend">
+          <p id="caption-3">
+            Let us run a thought experiment. Suppose both fishers fished from this sample distribution, what would their two catches look like? (Assuming they both fish the same amount as the original distributions.)
+          </p>
+          <button id="sample" class="ui button massive" @click="sample">Sample!</button>
+          <div>
+            <span class="legend-a"></span> Mean: {{ formatDp(meanSampleA) }}
+          </div>
+          <div>
+            <span class="legend-b"></span> Mean: {{ formatDp(meanSampleB) }}
+          </div>
+          <div>
+            <h3>Difference: {{ formatDp(diffMeanSample) }}</h3>
+          </div>
+        </div>
+      </div>
+      <div id="section-4">
+        <h2>Rinse and Repeat</h2>
+        <div class="legend">
+          <p>
+            We can run this many times and record the difference in sample means for each experiment.
+            Then, we can estimate the probability that the difference of <b>{{ formatDp(diffMean) }}</b> (or more) arose out of pure chance!
+          </p>
+          <p>
+            If the chance of getting the difference from this combined sampling is high, then the difference is probably not significant. Typically, we define <i>high</i> as more than 5%.
+          </p>
+          <button id="fastforward" class="ui button massive" @click="fastforward">Run 1000 times!</button>
+        </div>
+        <div id="chart4">
+        </div>
+        <div id="p-value-caption">
+          <p>
+            Probability of getting a difference of <b>{{ formatDp(diffMean) }}</b> or more if we assume that both rivers have the same distribution:
+          </p>
+          <h1>{{ pValue }}%</h1>
+          <p id="p-value-comment">
+            {{ pValueComment }}
+          </p>
+        </div>
+      </div>
+      <div id="section-summary">
+        <h2>Summary</h2>
+        <p>
+          And that, in short, is bootstrapping! We want to test if a difference between two sample distributions could happen purely by chance. So...
+        </p>
+
+        <div class="ui centered cards" style="margin-top: 50px; margin-bottom: 50px;">
+          <div class="card">
+            <div class="ui slide down reveal image">
+              <div class="content" style="padding: 20px; background-color: #FFFFFF;">
+                <div class="header" style="font-weight: bold; font-size: 1.7rem;">Step 1</div>
+                <div class="description" style="font-size: 1.25rem;">
+                  Assume that the samples both came from the same distribution and combine both samples to get an estimate of this combined distribution
+                </div>
+              </div>
+              <img src="assets/step1.png" class="hidden content">
+            </div>
+          </div>
+          <div class="card">
+            <div class="ui slide down reveal image">
+              <div class="content" style="padding: 20px; background-color: #FFFFFF;">
+                <div class="header" style="font-weight: bold; font-size: 1.7rem;">Step 2</div>
+                <div class="description" style="font-size: 1.25rem;">
+                  Draw randomly from the combined distribution to get two new samples, then calculate the difference between sample means
+                </div>
+              </div>
+              <img src="assets/step2.png" class="hidden content">
+            </div>
+          </div>
+          <div class="card">
+            <div class="ui slide down reveal image">
+              <div class="content" style="padding: 20px; background-color: #FFFFFF;">
+                <div class="header" style="font-weight: bold; font-size: 1.7rem;">Step 3</div>
+                <div class="description" style="font-size: 1.25rem;">
+                  Repeat Step 2 lots of times and calculate the probability that the original difference (or more) could have happened by chance i.e. the <b>p-value</b>
+                </div>
+              </div>
+              <img src="assets/step3.png" class="hidden content">
+            </div>
+          </div>
+        </div>
+        <p>
+          As thanks for checking this out, here's a bonus version of this explorable that allows you to change the input distributions! Just click the button below and head back up to the <a href="#chart1">first chart</a>.
+        </p>
+        <div class="ui toggle checkbox" id="interactive-toggle">
+          <input type="checkbox" name="public" v-model="interactive">
+          <label style="font-size: 1.25rem; font-weight: bold;">BONUS MODE!</label>
+        </div>
+        <div id="things-to-try">
+          <h3>
+            Some things to try!
+          </h3>
+          <div class="ui list">
+            <span class="item">What if there is no difference between the means of the input distributions?</span>
+            <span class="item">What if each input distribution has only 1 element?</span>
+            <span class="item">What if the input distributions have different sizes?</span>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+      </div>
+    </div>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>

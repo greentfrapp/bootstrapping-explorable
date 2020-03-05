@@ -1,0 +1,467 @@
+body {
+  font-size: 1.25rem;
+  line-height: 2.5rem;
+}
+h1 {
+  text-align: center;
+  font-size: 64px;
+}
+h2 {
+  text-align: center;
+  font-size: 54px;
+  margin-bottom: 50px;
+}
+p {
+  line-height: 2.5rem;
+  text-align: justify;
+}
+/*#main {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+#main p {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}*/
+#interactive-mode-left {
+  z-index: 1000;
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: rotate(270deg) translateY(-150%);
+  color: #999;
+}
+#interactive-mode-right {
+  z-index: 1000;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: rotate(90deg) translateY(-150%);
+  color: #999;
+}
+#app {
+  /*border: 1px solid black;*/
+}
+#chart1, #chart2, #chart3, #chart4 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /*width: 800px;*/
+  /*height: 500px;*/
+  /*border: 1px solid black;*/
+}
+button#sample, button#fastforward {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-bottom: 25px;
+}
+.legend-a, .legend-b, .legend-a-actual, .legend-b-actual {
+  width: 50px;
+  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.legend-a-actual {
+  background-color: #1abc9c90;
+}
+.legend-b-actual {
+  background-color: #f39c1290;
+}
+.legend-a {
+  background-color: #34495e90;
+}
+.legend-b {
+  background-color: #9b59b690;
+}
+#title {
+  height: 100vh;
+  padding: 25px;
+  display: grid;
+  grid-template-rows: 35% auto;
+}
+#title-left {
+  position: relative;
+}
+#title-left h1 {
+  text-align: center;
+  font-size: 10vw;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#title-right {
+  position: relative;
+}
+#title-right div {
+  
+}
+@media (min-width: 750px) {
+  #title {
+    padding: 150px;
+  }
+  #title-left h1 {
+    font-size: 64px;
+  }
+}
+@media (min-width: 1200px) {
+  #title {
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 100%;
+    padding: 150px;
+  }
+  #title-left h1 {
+    font-size: 64px;
+  }
+  #title-right div {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+#section-intro {
+  /*height: 100vh;*/
+  padding: 50px;
+  background-color: azure;
+}
+#section-intro h2 {
+  font-size: 8vw;
+}
+#section-intro p {
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+@media (min-width: 750px) {
+  #section-intro {
+    padding: 100px;
+  }
+  #section-intro h2 {
+    font-size: 54px;
+  }
+  #section-intro p {
+    width: 60%;
+  }
+}
+#section-1 {
+  /*height: 80vh;*/
+  padding: 25px;
+  display: grid;
+  grid-template-areas:
+  "graph"
+  "interactive"
+  "legend";
+}
+#chart1 {
+  grid-area: graph;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+#section-1 .legend {
+  grid-area: legend;
+  margin-top: 50px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+  /*margin-top: 50px;*/
+  /*margin-left: 100px;*/
+  width: calc(100vw - 50px);
+}
+#section-1 #interactive-input {
+  grid-area: interactive;
+  width: calc(100vw - 50px);
+}
+@media (min-width: 750px) {
+  #section-1 {
+    padding: 100px;
+  }
+  #section-1 .legend {
+    /*display: inline-block;*/
+    vertical-align: top;
+    width: 100%;
+  }
+  #section-1 #interactive-input {
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  #section-1 {
+    padding: 100px;
+    grid-template-columns: 60% 40%;
+    grid-template-areas:
+    "graph legend"
+    "interactive .";
+  }
+  #section-1 .legend {
+    margin-top: 0px;
+    /*display: inline-block;*/
+    vertical-align: top;
+    width: 100%;
+  }
+}
+#section-1-5 {
+  /*height: 90vh;*/
+  padding: 50px;
+  background-color: azure;
+}
+#section-1-5 p {
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+#section-1-5 h2 {
+  font-size: 8vw;
+}
+@media (min-width: 750px) {
+  #section-1-5 {
+    padding: 100px;
+  }
+  #section-1-5 h2 {
+    font-size: 54px;
+  }
+  #section-1-5 p {
+    width: 60%;
+  }
+}
+#section-2 {
+  /*height: 80vh;*/
+  padding: 50px 25px;
+  display: grid;
+}
+#chart2 {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+#section-2 .legend {
+  width: calc(100vw - 50px);
+  margin-bottom: 50px;
+}
+@media (min-width: 750px) {
+  #section-2 {
+    padding: 100px;
+  }
+  #section-2 .legend {
+    width: calc(100vw - 200px);
+    margin-bottom: 50px;
+  }
+}
+@media (min-width: 1200px) {
+  #section-2 {
+    padding: 100px;
+    grid-template-columns: 40% 60%;
+  }
+  #section-2 .legend {
+    width: 90%;
+    margin-bottom: 50px;
+  }
+}
+#section-3 {
+  /*height: 80vh;*/
+  padding: 50px 25px;
+  background-color: azure;
+  display: grid;
+  grid-template-areas:
+  "legend"
+  "graph";
+}
+#caption-3 {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+#section-3 .legend {
+  grid-area: legend;
+  width: calc(100vw - 50px);
+  text-align: center;
+  margin-bottom: 50px;
+}
+#chart3 {
+  grid-area: graph;
+  width: 100%;
+  display: inline-block;
+}
+@media (min-width: 750px) {
+  #section-3 {
+    padding: 100px;
+  }
+  #section-3 .legend {
+    width: calc(100vw - 200px);
+    margin-bottom: 50px;
+  }
+}
+@media (min-width: 1200px) {
+  #section-3 {
+    grid-template-columns: 60% 40%;
+    grid-template-areas: "graph legend";
+  }
+  #section-3 .legend {
+    width: 90%;
+    margin-bottom: 50px;
+  }
+}
+#section-4 {
+  /*height: 100vh;*/
+  padding: 50px 25px;
+  /*background-color: azure;*/
+  position: relative;
+}
+#section-4 {
+  display: grid;
+  grid-template-areas:
+  "."
+  "legend"
+  "graph"
+  "caption";
+}
+#section-4 .legend {
+  grid-area: legend;
+  width: calc(100vw - 50px);
+}
+#section-4 h2 {
+  font-size: 8vw;
+  width: calc(100vw - 50px);
+}
+#chart4 {
+  grid-area: graph;
+  /*margin-top: 50px;*/
+  width: 100%;
+  display: inline-block;
+  /*margin-left: 40px;*/
+  margin-bottom: 25px;
+}
+#p-value-caption {
+  grid-area: caption;
+  /*position: absolute;*/
+  /*top: 30%;*/
+  /*right: 10%;*/
+  width: calc(100vw - 50px);
+  /*padding: 5px;*/
+  /*background-color: #FFFFFF90;*/
+}
+#p-value-caption h1 {
+  margin: 0;
+}
+#p-value-comment {
+  text-align: center;
+}
+@media (min-width: 750px) {
+  #section-4 {
+    grid-template-columns: 80% 20%;
+    grid-template-areas:
+    ". ."
+    "legend legend"
+    "graph caption";
+    padding: 50px 100px;
+  }
+  #section-4 h2 {
+    font-size: 54px;
+  }
+  #section-4 .legend {
+    margin-bottom: 50px;
+    width: calc(100vw - 200px);
+  }
+  #p-value-caption {
+    width: 200%;
+    position: relative;
+    left: -100%;
+    /*right: 10%;*/
+    /*padding: 5px;*/
+    /*background-color: #FFFFFF90;*/
+  }
+}
+@media (min-width: 1200px) {
+  #section-4 {
+    grid-template-columns: 40% 50% 10%;
+    grid-template-areas:
+    ". . ."
+    "legend graph caption";
+    padding: 50px 100px;
+  }
+  #section-4 h2 {
+    font-size: 54px;
+  }
+  #section-4 .legend {
+    width: 90%;
+    margin-bottom: 50px;
+  }
+  #p-value-caption {
+    width: 200%;
+    position: relative;
+    left: -100%;
+    /*right: 10%;*/
+    /*padding: 5px;*/
+    /*background-color: #FFFFFF90;*/
+  }
+}
+#section-summary {
+  /*height: 120vh;*/
+  padding: 50px;
+  background-color: azure;
+}
+#section-summary p {
+  width: calc(100vw - 100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+#things-to-try {
+  margin-top: 50px;
+  width: calc(100vw - 100px);
+  margin-left: auto;
+  margin-right: auto;
+}
+#things-to-try div span {
+  /*margin: 15px;*/
+  line-height: 2.5rem;
+}
+@media (min-width: 750px) {
+  #section-summary {
+    padding: 50px 100px;
+  }
+  #section-summary p {
+    width: calc(100vw - 200px);
+  }
+  #things-to-try {
+    width: calc(100vw - 200px);
+  }
+}
+@media (min-width: 1200px) {
+  #section-summary p {
+    width: 60%;
+  }
+  #things-to-try {
+    width: 60%;
+  }
+}
+#caption-1 {
+  padding: 25px;
+}
+.legend {
+  display: inline-block;
+  vertical-align: top;
+  /*margin-top: 50px;*/
+  /*margin-left: 100px;*/
+  width: 30%;
+}
+.xaxis-label, .yaxis-label {
+  font-size: 0.9rem;
+  font-weight: 10;
+}
+#interactive-toggle {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 350px;
+  display: block;
+}
+#footer {
+  height: 10vh;
+  background-color: azure;
+}
